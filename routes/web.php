@@ -22,14 +22,17 @@ Route::get('/', function () {
 
 
 Route::get('favorites/list/{user_id}', 'FavoritesController@show')
-//->middleware('auth')
+    ->middleware('auth')
 ;
 
-Route::get('favorites', 'FavoritesController@index');
+Route::get('favorites', 'FavoritesController@index')->middleware('auth')
+;
 
-Route::post('favorites', 'FavoritesController@store');
+Route::post('favorites', 'FavoritesController@store')->middleware('auth')
+;
 
-Route::delete('favorites/{user_id}/delete/{imdbID}', 'FavoritesController@destroy');
+Route::delete('favorites/{user_id}/delete/{imdbID}', 'FavoritesController@destroy')->middleware('auth')
+;
 
 /*
 
@@ -69,3 +72,5 @@ Route::delete('favorites/{id}', function ( $id ) {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+
