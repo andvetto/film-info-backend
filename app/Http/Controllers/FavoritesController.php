@@ -36,8 +36,11 @@ class FavoritesController extends Controller
      */
     public function show($user_id)
     {
-        return Favorite::where('user_id', $user_id)
-        ->get();
+        $numberFavorites = Favorite::where('user_id', $user_id)->count();
+        if ($numberFavorites>0)
+            return Favorite::where('user_id', $user_id)->get();
+        return "no-favorites";
+        
     }
 
     /**
