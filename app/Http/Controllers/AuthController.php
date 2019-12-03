@@ -30,7 +30,7 @@ class AuthController extends Controller
         $credentials = request(['email', 'password']);
 
         if (! $token = auth()->attempt($credentials)) {
-            return response()->json(['error' => 'Unauthorized'], 401);
+            return response()->json(['error' => 'Invalid email or password!'], 401);
         }
 
         return $this->respondWithToken($token);
@@ -44,7 +44,7 @@ class AuthController extends Controller
 
         $userExists = User::whereEmail($email)->exists();
         if($userExists){
-            return response()->json(['error' => 'Email '.$email.' already taken'], 401);
+            return response()->json(['error' => 'Email '.$email.' already taken!'], 401);
         }
         $user = new User();
         $user->name = $name;
@@ -53,7 +53,7 @@ class AuthController extends Controller
         $user->save();
 
         if (! $token = auth()->login($user)) {
-            return response()->json(['error' => 'Error creating user'], 401);
+            return response()->json(['error' => 'Error creating user.'], 401);
         }
 
         return $this->respondWithToken($token);
